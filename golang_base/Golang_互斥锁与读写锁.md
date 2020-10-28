@@ -190,7 +190,7 @@ func (rw *RWMutex) Unlock()
 
 以下是一个示例，此示例中同时使用了Mutex和RWMutex，RWMutex用于读、写，Mutex只用于读。
 
-```
+```go
 package main
 
 import (

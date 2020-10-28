@@ -508,20 +508,14 @@ func (c *conn) serve(ctx context.Context) {
     c.remoteAddr = c.rwc.RemoteAddr().String()
     ctx = context.WithValue(ctx, LocalAddrContextKey, c.rwc.LocalAddr())
     ...
-
     ctx, cancelCtx := context.WithCancel(ctx)
     c.cancelCtx = cancelCtx
     defer cancelCtx()
-
     ...
-
     for {
         w, err := c.readRequest(ctx)
-
         ...
-
         serverHandler{c.server}.ServeHTTP(w, w.req)
-
         ...
     }
 }
@@ -531,18 +525,12 @@ func (c *conn) serve(ctx context.Context) {
 
 ```go
 func (c *conn) readRequest(ctx context.Context) (w *response, err error) {
-
     ...
-
     req, err := readRequest(c.bufr, keepHostHeader)
-
     ...
-
     ctx, cancelCtx := context.WithCancel(ctx)
     req.ctx = ctx
-
     ...
-
     w = &response{
         conn:          c,
         cancelCtx:     cancelCtx,
@@ -558,7 +546,6 @@ func (c *conn) readRequest(ctx context.Context) (w *response, err error) {
         wants10KeepAlive: req.wantsHttp10KeepAlive(),
         wantsClose:       req.wantsClose(),
     }
-
     ...
     return w, nil
 }

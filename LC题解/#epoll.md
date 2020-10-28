@@ -1,22 +1,6 @@
 # Epoll的本质（内部实现原理）
 
-![img](https://csdnimg.cn/release/blogv2/dist/pc/img/reprint.png)
 
-​                    [Lailikes](https://me.csdn.net/songchuwang1868)                    2019-05-06 11:11:26                    ![img](https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes.png)                    29344                                            ![img](https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect.png)                                                收藏                                                    171                                                                
-
-​                            分类专栏：                                [网络](https://blog.csdn.net/songchuwang1868/category_8235292.html)                                [操作系统](https://blog.csdn.net/songchuwang1868/category_8768253.html)                            文章标签：                                [Epoll](https://www.csdn.net/gather_2e/MtjaIgysMjQzNzEtYmxvZwO0O0OO0O0O.html)                                [本质](https://so.csdn.net/so/search/s.do?q=本质&t=blog&o=vip&s=&l=&f=&viparticle=)                                [内部](https://www.csdn.net/gather_29/MtTaEg0sNDk0NTEtYmxvZwO0O0OO0O0O.html)                                [原理](https://www.csdn.net/gather_25/MtTaEg0sMzY0NDAtYmxvZwO0O0OO0O0O.html)                                [内核](https://www.csdn.net/gather_2c/MtjaMg0sMDA2NjgtYmxvZwO0O0OO0O0O.html)                    
-
-​                
-
-本文主体转自https://zhuanlan.zhihu.com/p/63179839，加上了自己的理解和批注
-
-从事服务端开发，少不了要接触网络编程。epoll作为linux下高性能网络服务器的必备技术至关重要，nginx、redis、skynet和大部分游戏服务器都使用到这一多路复用技术。
-
-因为epoll的重要性，不少游戏公司（如某某九九）在招聘服务端同学时，可能会问及epoll相关的问题。比如epoll和select的区别是什么？epoll高效率的原因是什么？如果只靠背诵，显然不能算上深刻的理解。
-
-网上虽然也有不少讲解epoll的文章，但要不是过于浅显，就是陷入源码解析，很少能有通俗易懂的。于是决定编写此文，让缺乏专业背景知识的读者也能够明白epoll的原理。文章核心思想是：
-
-**要让读者清晰明白EPOLL为什么性能好。**
 
 本文会从网卡接收数据的流程讲起，串联起CPU中断、操作系统进程调度等知识；再一步步分析阻塞接收数据、select到epoll的进化过程；最后探究epoll的实现细节。
 
