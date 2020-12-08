@@ -41,6 +41,22 @@ func Push(h Interface, x interface{})  // 往堆里面插入内容
 func Pop(h Interface) interface{}  // 从堆顶pop出内容
 func Remove(h Interface, i int) interface{}  // 从指定位置删除数据，并返回删除的数据
 func Fix(h Interface, i int)  // 从i位置数据发生改变后，对堆再平衡，优先级队列使用到了该方法
+
+
+//小根堆
+
+type IntHeap []int
+
+func (h IntHeap) Len() int            { return len(h) }
+func (h IntHeap) Less(i, j int) bool  { return h[i] < h[j] }
+func (h IntHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
+func (h *IntHeap) Push(x interface{}) { *h = append(*h, x.(int)) }
+func (h *IntHeap) Pop() interface{} {
+	res := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return res
+}
+  
 ```
 
 ## 利用heap实现优先队列
