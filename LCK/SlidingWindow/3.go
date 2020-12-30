@@ -1,4 +1,6 @@
-package SlidingWindow
+package slidingwindow
+
+import "math"
 
 func lengthOfLongestSubstring(s string) int {
 	window := make(map[byte]int)
@@ -10,7 +12,7 @@ func lengthOfLongestSubstring(s string) int {
 	ss := []byte(s)
 	for right < len(s) {
 		c := ss[right]
-		right++ 
+		right++
 
 		window[c]++
 
@@ -20,12 +22,12 @@ func lengthOfLongestSubstring(s string) int {
 			left++
 		}
 
-		res = max(res, right + 1 - left)
+		res = max(res, right+1-left)
 	}
 	return res
 }
 
-func max (a ...int) int {
+func max(a ...int) int {
 	res := math.MinInt32
 	for _, v := range a {
 		if v > res {
