@@ -1,3 +1,4 @@
 {
-    "go.goroot": "/Users/yrc/goroots/gosource"
+    "go.goroot": "/Users/yrc/goroots/gosource",
+    "go.lintFlags": ["--disable=varcheck", "--enable=errcheck"]
 }

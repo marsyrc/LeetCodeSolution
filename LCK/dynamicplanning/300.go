@@ -7,15 +7,17 @@ func lengthOfLIS(nums []int) int {
 	}
 	dp := make([]int, n)
 	dp[0] = 1
+	res := 1
 	for i := 1; i < n; i++ {
 		dp[i] = 1
-		for j := 0; j < i; i++ {
+		for j := 0; j < i; j++ {
 			if nums[j] < nums[i] {
 				dp[i] = max(dp[i], dp[j]+1)
 			}
 		}
+		res = max(res, dp[i])
 	}
-	return dp[n-1]
+	return res
 }
 
 func max(a, b int) int {
