@@ -1,8 +1,7 @@
 并查集Union find，用来表示网络节点之间是否连接的集合。
  这里的网络是一抽抽象的概念，不仅包括互联网，人与人形成的网络，道路之间形成的网络，迷宫网络等等。
- 数据存储格式如下
 
-![img](C:\Users\mars\Documents\keepCoding\leetCodingSon\golang_算法实现\aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTIwMzU2NS1mYjE2Y2U3YWM2ZjFiNjVjLmpwZw)
+
 
 1）i 为节点索引， set[i] 为所属集合，若两个索引所属集合相同，表示这两节点相连
  2）跟传统树结构不同的是，并查集是一种子节点指向父节点的数据结构
