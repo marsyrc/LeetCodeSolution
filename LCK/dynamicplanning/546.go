@@ -1,6 +1,7 @@
 package dynamicplanning
 
 //hard
+//区间dp
 func removeBoxes(boxes []int) int {
 	f := [100][100][100]int{}
 

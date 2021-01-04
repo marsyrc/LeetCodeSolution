@@ -2,6 +2,7 @@ package dynamicplanning
 
 import "math"
 
+//区间dp
 func maxCoins(nums []int) int {
 	//add 1 in two ends of nums
 	n := len(nums)
@@ -26,7 +27,6 @@ func maxCoins(nums []int) int {
 				right := dp[k][i+l-1]
 				res = max(res, left+right+temp[i]*temp[k]*temp[i+l-1])
 			}
-
 			dp[i][i+l-1] = res
 		}
 	}
