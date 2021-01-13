@@ -2,11 +2,11 @@ package main
 
 import "fmt"
 
-func _quickSort(arr []int, left, right int) {
+func quickSort(arr []int, left, right int) {
 	if left < right {
 		index := partition(arr, left, right)
-		_quickSort(arr, left, index-1)
-		_quickSort(arr, index+1, right)
+		quickSort(arr, left, index-1)
+		quickSort(arr, index+1, right)
 	}
 }
 
@@ -36,6 +36,6 @@ func swap(arr []int, i, j int) {
 
 func main() {
 	a := []int{7, 5, 3, 7, 3, 26, 2, 1, 23}
-	_quickSort(a, 0, len(a)-1)
+	quickSort(a, 0, len(a)-1)
 	fmt.Println(a)
 }

@@ -1,6 +1,5 @@
-# 实现栈
+package golang_alg
 
-```
 //Stack 栈
 type Stack struct {
 	data []interface{}
@@ -58,5 +57,3 @@ func (s *Stack) Get(index int) interface{} {
 func (s *Stack) Top() interface{} {
 	return s.data[s.top]
 }
-```
-

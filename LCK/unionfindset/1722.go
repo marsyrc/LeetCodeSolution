@@ -1,4 +1,4 @@
-package _goutils
+package unionfindset
 
 import "math"
 
@@ -8,32 +8,28 @@ func minimumHammingDistance(source []int, target []int, allowedSwaps [][]int) in
 		uf.Mix(v[0], v[1])
 	}
 	n := len(source)
-	ans := 0
-	m := make(map[int][]int)
+	same := 0
+	m := map[int]map[int]int{}
 	for i := 0; i < n; i++ {
-		m[target[i]] = make([]int, 0)
-		m[target[i]] = append(m[target[i]], i)
-	}
-
-	for i := 0; i < n; i++ {
-		key := source[i]
-		flag := false
-		for index, j := range m[key] {
-			if uf.connected(i, j) {
-				m[key] = append(m[key][:index], m[key][index+1:]...)
-				flag = true
-				break
-			}
+		fa := uf.Find(i)
+		if _, ok := m[fa]; !ok {
+			m[fa] = map[int]int{}
 		}
-		if !flag {
-			ans++
+		m[fa][source[i]]++
+	}
+	for i := 0; i < n; i++ {
+		fa := uf.Find(i)
+		if m[fa][target[i]] > 0 {
+			same++
+			m[fa][target[i]]--
 		}
 	}
-	return ans
+	return n - same
 }
 
 type UnionFindSet struct {
 	id    []int
+	sz    []int
 	count int
 }
 
@@ -42,8 +38,15 @@ func NewUnionFindSet(n int) *UnionFindSet {
 	for i := range id {
 		id[i] = i
 	}
+
+	sz := make([]int, n)
+	for i := range sz {
+		sz[i] = 1
+	}
+
 	return &UnionFindSet{
 		id:    id,
+		sz:    sz,
 		count: n,
 	}
 }
@@ -56,16 +59,22 @@ func (u *UnionFindSet) Find(p int) int {
 }
 
 func (u *UnionFindSet) Mix(p, q int) {
-	pRoot := u.Find(p)
-	qRoot := u.Find(q)
-	if pRoot == qRoot {
+	i := u.Find(p)
+	j := u.Find(q)
+	if i == j {
 		return
 	}
-	u.id[pRoot] = qRoot
+	if u.sz[i] < u.sz[j] {
+		u.id[i] = j
+		u.sz[j] += u.sz[i]
+	} else {
+		u.id[j] = i
+		u.sz[i] += u.sz[j]
+	}
 	u.count--
 }
 
-func (u *UnionFindSet) connected(p, q int) bool {
+func (u *UnionFindSet) isConnected(p, q int) bool {
 	return u.Find(p) == u.Find(q)
 }
 

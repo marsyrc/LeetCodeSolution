@@ -1,4 +1,4 @@
-package shell
+package main
 
 import "fmt"
 
@@ -13,12 +13,12 @@ func shellSort(a []int) {
 	for step > 0 {
 		for i := step; i < len(a); i++ {
 			j := i - step
-			get := a[i]
-			for j >= 0 && a[j] > get {
+			backup := a[i]
+			for j >= 0 && a[j] > backup {
 				a[j+step] = a[j]
 				j = j - step
 			}
-			a[j+step] = get
+			a[j+step] = backup
 		}
 		fmt.Println(step)
 		step = (step - 1) / 3

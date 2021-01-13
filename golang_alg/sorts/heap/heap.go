@@ -13,7 +13,7 @@ import "fmt"
 //runtime : nlogn
 func bulidHeap(arr []int, start int, end int) {
 	dad := start
-	son := dad*2 + 1
+	son := dad*2 + 1·
 	for son <= end {
 		if son+1 <= end && arr[son] < arr[son+1] {
 			son++
