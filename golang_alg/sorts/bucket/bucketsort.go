@@ -22,20 +22,21 @@ func bucketSort(arr []int) {
 	maxNum := max(arr...)
 	buckets := make([][]int, n)
 
+	//元素依次入桶
+	//index = hash(arr[i]) = arr[i] * (n - 1) / maxNum
 	index := 0
 	for i := 0; i < n; i++ {
 		index = arr[i] * (n - 1) / maxNum
 		buckets[index] = append(buckets[index], arr[i])
 	}
-
-	tempPos := 0
+	temp := []int{}
 	for i := 0; i < n; i++ {
 		if len(buckets[i]) > 0 {
 			insertSort(buckets[i])
-			copy(arr[tempPos:], buckets[i])
-			tempPos += len(buckets[i])
+			temp = append(temp, buckets[i]...)
 		}
 	}
+	copy(arr, temp)
 }
 
 func max(a ...int) int {

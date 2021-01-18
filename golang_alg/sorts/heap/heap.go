@@ -13,7 +13,7 @@ import "fmt"
 //runtime : nlogn
 func bulidHeap(arr []int, start int, end int) {
 	dad := start
-	son := dad*2 + 1·
+	son := dad*2 + 1
 	for son <= end {
 		if son+1 <= end && arr[son] < arr[son+1] {
 			son++
@@ -28,11 +28,13 @@ func bulidHeap(arr []int, start int, end int) {
 	}
 }
 
-func heapSort(arr []int, len int) {
-	for i := len/2 - 1; i >= 0; i-- {
-		bulidHeap(arr, i, len-1)
+func heapSort(arr []int) {
+	n := len(arr)
+	//建堆
+	for i := n/2 - 1; i >= 0; i-- {
+		bulidHeap(arr, i, n-1)
 	}
-	for i := len - 1; i > 0; i-- {
+	for i := n - 1; i > 0; i-- {
 		swap(arr, 0, i)
 		bulidHeap(arr, 0, i-1)
 	}

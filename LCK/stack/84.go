@@ -1,29 +1,27 @@
 package stack
 
-import "math"
-
+//维护一个单调递增栈
 func largestRectangleArea(heights []int) int {
 	n := len(heights)
-	if n == 1 {
-		return heights[0]
+	if n == 0 {
+		return 0
 	}
-
 	res := 0
 	s := []int{}
 	for i := 0; i < n; i++ {
-		for len(s) != 0 && heights[s[len(s)-1]] > heights[i] {
+		for len(s) > 0 && heights[s[len(s)-1]] > heights[i] {
 			length := heights[s[len(s)-1]]
 			s = s[:len(s)-1]
 			weight := i
 			if len(s) != 0 {
 				weight = i - s[len(s)-1] - 1
 			}
-			res = max(res, weight*length)
+			res = max(res, length*weight)
 		}
 		s = append(s, i)
 	}
 
-	for len(s) != 0 {
+	for len(s) > 0 {
 		length := heights[s[len(s)-1]]
 		s = s[:len(s)-1]
 		weight := n
@@ -35,12 +33,9 @@ func largestRectangleArea(heights []int) int {
 	return res
 }
 
-func max(a ...int) int {
-	res := math.MinInt32
-	for _, v := range a {
-		if v > res {
-			res = v
-		}
+func max(a, b int) int {
+	if a > b {
+		return a
 	}
-	return res
+	return b
 }
