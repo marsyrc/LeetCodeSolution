@@ -33,7 +33,7 @@ func countRangeSum(nums []int, lower, upper int) int {
 		// merge n1 & n2 into arr
 		p1, p2 := 0, 0
 		for i := range arr {
-			if p1 < len(n1) && (p2 == len(n2) || n1[p1] <= n2[p2]) {
+			if (p1 < len(n1) && p2 == len(n2)) || n1[p1] <= n2[p2]) {
 				arr[i] = n1[p1]
 				p1++
 			} else {
