@@ -7,7 +7,6 @@ func jump(nums []int) int {
 	steps := 0
 	for i := 0; i < n-1; i++ {
 		maxPos = max(maxPos, nums[i]+i)
-
 		if i == end {
 			end = maxPos
 			steps++
