@@ -2,7 +2,6 @@ package dynamicplanning
 
 import "sort"
 
-//this problem also has dp solutions, see dp/368.go
 func largestDivisibleSubset(nums []int) []int {
 	sort.Ints(nums)
 	n := len(nums)
@@ -16,7 +15,7 @@ func largestDivisibleSubset(nums []int) []int {
 	for i := 0; i < n; i++ {
 		father[i] = i
 	}
-
+	//注意遍历顺序
 	for i := 0; i < n; i++ {
 		for j := i - 1; j >= 0; j-- {
 			if nums[i]%nums[j] == 0 && level[i] < level[j]+1 {

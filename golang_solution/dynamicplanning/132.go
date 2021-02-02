@@ -10,13 +10,17 @@ func minCut(s string) int {
 	for i := range check {
 		check[i] = make([]bool, len(s))
 	}
-	for right := 0; right < len(s); right++ {
-		for left := 0; left <= right; left++ {
+	//区间dp
+	for l := 1; l <= len(s); l++ {
+		for left := 0; left <= len(s)-l; left++ {
+			right := left + l - 1
 			if s[left] == s[right] && (right-left <= 2 || check[left+1][right-1]) {
 				check[left][right] = true
 			}
 		}
 	}
+
+	//dp : [0, i] 所需的最少分割次数
 	dp := make([]int, len(s))
 	for i := range dp {
 		dp[i] = i
@@ -26,7 +30,6 @@ func minCut(s string) int {
 			dp[i] = 0
 			continue
 		}
-		//dp[i] = min(dp[j] + 1), j for range[0,i) && [j + 1, i] is Palindrome
 		for j := 0; j < i; j++ {
 			if check[j+1][i] {
 				dp[i] = min(dp[i], dp[j]+1)
