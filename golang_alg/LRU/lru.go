@@ -21,12 +21,13 @@ func Constructor(cap int) LRUCache {
 
 func (l *LRUCache) moveToFront(node *LinkedNode) {
 	head := l.head
+	//恢复现场
 	node.pre.next = node.next
 	node.next.pre = node.pre
 
+	//加入头尾，4个接口
 	node.next = head.next
 	head.next.pre = node
-
 	node.pre = head
 	head.next = node
 }
@@ -54,6 +55,7 @@ func (l *LRUCache) Put(key int, value int) {
 			tail.pre.pre.next = tail
 			tail.pre = tail.pre.pre
 		}
+		//更新4个接口
 		v.next = head.next
 		v.pre = head
 		head.next.pre = v
