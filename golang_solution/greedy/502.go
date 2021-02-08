@@ -57,7 +57,7 @@ func (h *MaxHeap) Push(x interface{}) {
 	*h = append((*h), x.(pair))
 }
 
-//按资本排序
+//小根堆，按资本排序
 type MinHeap []pair
 
 func (h MinHeap) Len() int {
