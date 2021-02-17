@@ -1,4 +1,4 @@
-package hashtable
+package hashmap
 
 func twoSum(nums []int, target int) []int {
 	dict := make(map[int]int)

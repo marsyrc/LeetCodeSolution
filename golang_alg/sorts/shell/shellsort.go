@@ -4,7 +4,6 @@ import "fmt"
 
 func shellSort(a []int) {
 	//生成步长
-	//step := len(a) / 3 + 1
 	step := 0
 	for step <= len(a) {
 		step = 3*step + 1
