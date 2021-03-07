@@ -25,11 +25,11 @@ func (this *Codec) serialize(root *TreeNode) string {
 	dfsS = func(node *TreeNode, str string) string {
 		if node == nil {
 			str += "null,"
-		} else {
-			str += strconv.Itoa(node.Val) + ","
-			str = dfsS(node.Left, str)
-			str = dfsS(node.Right, str)
+			return str
 		}
+		str += strconv.Itoa(node.Val) + ","
+		str = dfsS(node.Left, str)
+		str = dfsS(node.Right, str)
 		return str
 	}
 	return dfsS(root, "")
@@ -46,9 +46,7 @@ func (this *Codec) deserialize(data string) *TreeNode {
 		}
 		v, _ := strconv.Atoi(this.list[0])
 		this.list = this.list[1:]
-		root := &TreeNode{
-			Val: v,
-		}
+		root := &TreeNode{v, nil, nil}
 		root.Left = dfsD()
 		root.Right = dfsD()
 		return root

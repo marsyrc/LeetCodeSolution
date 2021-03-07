@@ -2,7 +2,6 @@ package array
 
 func sortColors(nums []int) {
 	//netherland banner alg
-
 	l, r := 0, len(nums)-1
 	cur := 0
 	for cur <= r {

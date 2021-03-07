@@ -1,9 +1,6 @@
 package stringproblem
 
-import (
-	"fmt"
-	"strings"
-)
+import "strings"
 
 func myAtoi(s string) int {
 	s = strings.TrimLeft(s, " ")
@@ -18,7 +15,6 @@ func myAtoi(s string) int {
 	} else if s[0] == '+' {
 		s = s[1:]
 	}
-	fmt.Println(s)
 	if len(s) > 0 && !isdigit(s[0]) {
 		return 0
 	}
@@ -32,13 +28,9 @@ func myAtoi(s string) int {
 			}
 		}
 	}
-	fmt.Println(x)
 	return x * symbol
 }
 
 func isdigit(c byte) bool {
-	if c >= '0' && c <= '9' {
-		return true
-	}
-	return false
+	return c >= '0' && c <= '9'
 }
