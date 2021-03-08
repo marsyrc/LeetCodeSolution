@@ -4,11 +4,49 @@ import (
 	"math"
 )
 
+type edge struct {
+	p      int
+	weight int
+}
+
+func maxLength(arr []string) int {
+	getBit := func(word string) int {
+		res := 0
+		for _, c := range word {
+			if res&(1<<int(c-'a')) != 0 {
+				return 0
+			}
+			res |= (1 << int(c-'a'))
+		}
+		return res
+	}
+
+	res := 0
+	var dfs func(idx int, bit int, l int)
+	dfs = func(idx int, bit int, l int) {
+		if idx == len(arr) {
+			res = max(res, l)
+			return
+		}
+		for i := idx; i < len(arr); i++ {
+			nextbit := getBit(arr[i])
+			dfs(i+1, bit, l)
+			if nextbit == 0 || nextbit&bit != 0 {
+				continue
+			}
+			dfs(i+1, bit|nextbit, l+len(arr[i]))
+		}
+	}
+	dfs(0, 0, 0)
+	return res
+}
+
 func main() {
 	// input := bufio.NewScanner(os.Stdin)
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
+
 }
 
 /*
