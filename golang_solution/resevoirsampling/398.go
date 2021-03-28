@@ -1,5 +1,10 @@
 package resevoirsampling
 
+import (
+	"math/rand"
+	"time"
+)
+
 //常数空间，线性时间
 type Solution struct {
 	nums []int

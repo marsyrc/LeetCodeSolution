@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"math"
 )
 
@@ -9,44 +10,33 @@ type edge struct {
 	weight int
 }
 
-func maxLength(arr []string) int {
-	getBit := func(word string) int {
-		res := 0
-		for _, c := range word {
-			if res&(1<<int(c-'a')) != 0 {
-				return 0
-			}
-			res |= (1 << int(c-'a'))
-		}
-		return res
-	}
-
-	res := 0
-	var dfs func(idx int, bit int, l int)
-	dfs = func(idx int, bit int, l int) {
-		if idx == len(arr) {
-			res = max(res, l)
-			return
-		}
-		for i := idx; i < len(arr); i++ {
-			nextbit := getBit(arr[i])
-			dfs(i+1, bit, l)
-			if nextbit == 0 || nextbit&bit != 0 {
-				continue
-			}
-			dfs(i+1, bit|nextbit, l+len(arr[i]))
-		}
-	}
-	dfs(0, 0, 0)
-	return res
-}
-
 func main() {
 	// input := bufio.NewScanner(os.Stdin)
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
 
+}
+
+func solution(year int, month int, day int) (int, error) {
+	var isLeapYear bool
+	isLeapYear = year%4 == 0 && year%100 != 0 || year%400 == 0
+	dayInMonths := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+	if isLeapYear {
+		dayInMonths[1] = 29
+	}
+	var err error
+	err = errors.New("invalid input!")
+	if month <= 0 || month > 12 || day > dayInMonths[month-1] {
+		return 0, err
+	}
+
+	res := 0
+	for i := 0; i < month-1; i++ {
+		res += dayInMonths[i]
+	}
+	res += day
+	return res, nil
 }
 
 /*
