@@ -18,6 +18,14 @@ func main() {
 
 }
 
+/*
+	Data structure : ListNode
+*/
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 func solution(year int, month int, day int) (int, error) {
 	var isLeapYear bool
 	isLeapYear = year%4 == 0 && year%100 != 0 || year%400 == 0
@@ -25,9 +33,10 @@ func solution(year int, month int, day int) (int, error) {
 	if isLeapYear {
 		dayInMonths[1] = 29
 	}
+
 	var err error
 	err = errors.New("invalid input!")
-	if month <= 0 || month > 12 || day > dayInMonths[month-1] {
+	if month <= 0 || month > 12 || day <= 0 || day > dayInMonths[month-1] {
 		return 0, err
 	}
 
@@ -67,14 +76,6 @@ func abs(x int) int {
 		return -x
 	}
 	return x
-}
-
-/*
-	Data structure : ListNode
-*/
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }
 
 /*

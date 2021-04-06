@@ -13,7 +13,6 @@ func networkDelayTime(times [][]int, n int, k int) int {
 		}
 		graph[e[0]] = append(graph[e[0]], []int{e[1], e[2]})
 	}
-
 	dist := make(map[int]int)
 	h := IntHeap{}
 	heap.Push(&h, []int{k, 0})
