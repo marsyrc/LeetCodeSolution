@@ -10,6 +10,59 @@ type edge struct {
 	weight int
 }
 
+func minSideJumps(obstacles []int) int {
+	dp1, dp2, dp3 := 1, 0, 1
+	for i := 0; i < len(obstacles); i++ {
+		switch obstacles[i] {
+		case 1:
+			if i > 0 && obstacles[i-1] == 2 {
+				dp2 = dp3 + 1
+			} else {
+				dp2 = min(dp2, dp1+1)
+			}
+			if i > 0 && obstacles[i-1] == 3 {
+				dp3 = dp2 + 1
+			} else {
+				dp3 = min(dp3, dp1+1)
+			}
+			dp1 += 2
+		case 2:
+			if i > 0 && obstacles[i-1] == 1 {
+				dp1 = dp3 + 1
+			} else {
+				dp1 = min(dp1, dp2+1)
+			}
+			if i > 0 && obstacles[i-1] == 3 {
+				dp3 = dp1 + 1
+			} else {
+				dp3 = min(dp3, dp2+1)
+			}
+			dp2 += 2
+		case 3:
+			if i > 0 && obstacles[i-1] == 1 {
+				dp1 = dp2 + 1
+			} else {
+				dp1 = min(dp1, dp3+1)
+			}
+			if i > 0 && obstacles[i-1] == 2 {
+				dp2 = dp1 + 1
+			} else {
+				dp2 = min(dp2, dp3+1)
+			}
+			dp3 += 2
+		}
+	}
+	n := len(obstacles)
+	if obstacles[n-1] == 1 {
+		return min(dp2, dp3)
+	} else if obstacles[n-1] == 2 {
+		return min(dp1, dp3)
+	} else if obstacles[n-1] == 3 {
+		return min(dp1, dp2)
+	}
+	return min(dp1, dp2, dp3)
+}
+
 func main() {
 	// input := bufio.NewScanner(os.Stdin)
 	// for input.Scan() {
