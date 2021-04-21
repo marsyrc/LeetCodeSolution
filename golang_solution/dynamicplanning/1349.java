@@ -1,6 +1,6 @@
 package golang_solution.dynamicplanning;
 
-class Solution {
+class Solution1349 {
     public int maxStudents(char[][] seats) {
         int m = seats.length;
         int n = seats[0].length;
