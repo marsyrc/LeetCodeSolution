@@ -2,65 +2,37 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math"
+	"reflect"
+	"sort"
 )
 
-type edge struct {
-	p      int
-	weight int
+func maxBuilding(n int, r [][]int) int {
+	r = append(r, []int{1, 0})
+	sort.Slice(r, func(i, j int) bool {
+		return r[i][0] < r[j][0]
+	})
+	if r[len(r)-1][0] != n {
+		r = append(r, []int{n, n - 1})
+	}
+	l := len(r)
+	for i := 1; i < l; i++ {
+		r[i][1] = min(r[i][1], r[i-1][1]+(r[i][0]-r[i-1][0]))
+	}
+	for i := l - 2; i >= 0; i-- {
+		r[i][1] = min(r[i][1], r[i+1][1]+(r[i+1][0]-r[i][0]))
+	}
+
+	res := -1
+	for i := 1; i < l; i++ {
+		res = max(res, (r[i][1]+r[i-1][1]+r[i][0]-r[i-1][0])/2)
+	}
+	return res
 }
 
-func minSideJumps(obstacles []int) int {
-	dp1, dp2, dp3 := 1, 0, 1
-	for i := 0; i < len(obstacles); i++ {
-		switch obstacles[i] {
-		case 1:
-			if i > 0 && obstacles[i-1] == 2 {
-				dp2 = dp3 + 1
-			} else {
-				dp2 = min(dp2, dp1+1)
-			}
-			if i > 0 && obstacles[i-1] == 3 {
-				dp3 = dp2 + 1
-			} else {
-				dp3 = min(dp3, dp1+1)
-			}
-			dp1 += 2
-		case 2:
-			if i > 0 && obstacles[i-1] == 1 {
-				dp1 = dp3 + 1
-			} else {
-				dp1 = min(dp1, dp2+1)
-			}
-			if i > 0 && obstacles[i-1] == 3 {
-				dp3 = dp1 + 1
-			} else {
-				dp3 = min(dp3, dp2+1)
-			}
-			dp2 += 2
-		case 3:
-			if i > 0 && obstacles[i-1] == 1 {
-				dp1 = dp2 + 1
-			} else {
-				dp1 = min(dp1, dp3+1)
-			}
-			if i > 0 && obstacles[i-1] == 2 {
-				dp2 = dp1 + 1
-			} else {
-				dp2 = min(dp2, dp3+1)
-			}
-			dp3 += 2
-		}
-	}
-	n := len(obstacles)
-	if obstacles[n-1] == 1 {
-		return min(dp2, dp3)
-	} else if obstacles[n-1] == 2 {
-		return min(dp1, dp3)
-	} else if obstacles[n-1] == 3 {
-		return min(dp1, dp2)
-	}
-	return min(dp1, dp2, dp3)
+func Add(a, b int) int {
+	return a + b
 }
 
 func main() {
@@ -68,7 +40,23 @@ func main() {
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
-
+	v := reflect.ValueOf(Add)
+	if v.Kind() != reflect.Func {
+		return
+	}
+	t := v.Type()
+	argv := make([]reflect.Value, t.NumIn())
+	for i := range argv {
+		if t.In(i).Kind() != reflect.Int {
+			return
+		}
+		argv[i] = reflect.ValueOf(i)
+	}
+	result := v.Call(argv)
+	if len(result) != 1 || result[0].Kind() != reflect.Int {
+		return
+	}
+	fmt.Println(result[0].Int())
 }
 
 /*
