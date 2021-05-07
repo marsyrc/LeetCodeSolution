@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"math"
 	"reflect"
 	"sort"
 	"sync"
-	"time"
 )
 
 func maxBuilding(n int, r [][]int) int {
@@ -61,12 +59,9 @@ func main() {
 	}
 	fmt.Println(result[0].Int())
 
-	ctx, cancelF := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancelF()
-
 	mu := sync.RWMutex{}
 	mu.Lock()
-	
+
 	mu.RLock()
 }
 
