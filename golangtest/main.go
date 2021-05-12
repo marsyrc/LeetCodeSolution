@@ -1,39 +1,18 @@
 package main
 
 import (
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"math"
-	"reflect"
-	"sort"
-	"sync"
 )
 
-func maxBuilding(n int, r [][]int) int {
-	r = append(r, []int{1, 0})
-	sort.Slice(r, func(i, j int) bool {
-		return r[i][0] < r[j][0]
-	})
-	if r[len(r)-1][0] != n {
-		r = append(r, []int{n, n - 1})
-	}
-	l := len(r)
-	for i := 1; i < l; i++ {
-		r[i][1] = min(r[i][1], r[i-1][1]+(r[i][0]-r[i-1][0]))
-	}
-	for i := l - 2; i >= 0; i-- {
-		r[i][1] = min(r[i][1], r[i+1][1]+(r[i+1][0]-r[i][0]))
+func BytesToInt64(n []byte) (int64, error) {
+	if n == nil || len(n) < 8 {
+		return 0, nil
 	}
 
-	res := -1
-	for i := 1; i < l; i++ {
-		res = max(res, (r[i][1]+r[i-1][1]+r[i][0]-r[i-1][0])/2)
-	}
-	return res
-}
-
-func Add(a, b int) int {
-	return a + b
+	return int64(binary.BigEndian.Uint64(n)), nil
 }
 
 func main() {
@@ -41,28 +20,8 @@ func main() {
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
-	v := reflect.ValueOf(Add)
-	if v.Kind() != reflect.Func {
-		return
-	}
-	t := v.Type()
-	argv := make([]reflect.Value, t.NumIn())
-	for i := range argv {
-		if t.In(i).Kind() != reflect.Int {
-			return
-		}
-		argv[i] = reflect.ValueOf(i)
-	}
-	result := v.Call(argv)
-	if len(result) != 1 || result[0].Kind() != reflect.Int {
-		return
-	}
-	fmt.Println(result[0].Int())
-
-	mu := sync.RWMutex{}
-	mu.Lock()
-
-	mu.RLock()
+	i, _ := BytesToInt64([]byte("1234"))
+	fmt.Println(i)
 }
 
 /*
