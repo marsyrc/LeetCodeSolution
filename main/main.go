@@ -1,27 +1,15 @@
 package main
 
 import (
-	"encoding/binary"
 	"errors"
-	"fmt"
 	"math"
 )
-
-func BytesToInt64(n []byte) (int64, error) {
-	if n == nil || len(n) < 8 {
-		return 0, nil
-	}
-
-	return int64(binary.BigEndian.Uint64(n)), nil
-}
 
 func main() {
 	// input := bufio.NewScanner(os.Stdin)
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
-	i, _ := BytesToInt64([]byte("1234"))
-	fmt.Println(i)
 }
 
 /*
