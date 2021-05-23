@@ -1,4 +1,7 @@
 {
     "go.goroot": "/Users/yrc/goroots/gosource",
-    "go.lintFlags": ["--disable=varcheck", "--enable=errcheck"]
+    "go.lintFlags": ["--disable=varcheck", "--enable=errcheck"],
+
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
 }
