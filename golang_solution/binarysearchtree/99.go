@@ -1,7 +1,5 @@
 package binarysearchtree
 
-import "fmt"
-
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -23,7 +21,6 @@ func recoverTree(root *TreeNode) {
 		}
 		if x != nil && pre != nil && root.Val < pre.Val {
 			y = root
-			fmt.Println(y.Val)
 		}
 		pre = root
 		root = root.Right
