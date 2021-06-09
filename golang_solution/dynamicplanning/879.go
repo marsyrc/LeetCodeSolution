@@ -9,6 +9,7 @@ func profitableSchemes(n int, minProfit int, group []int, profit []int) int {
 			dp[i][j] = make([]int, minProfit+1)
 		}
 	}
+	dp[0][0][0] = 1
 	const mod = int(1e9 + 7)
 	for i := 1; i <= m; i++ {
 		gNeed := group[i-1]
