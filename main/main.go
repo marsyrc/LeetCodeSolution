@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/binary"
 	"errors"
-	"fmt"
 	"math"
 )
 
@@ -12,23 +10,7 @@ func main() {
 	// for input.Scan() {
 	// 	curline := input.Text()
 	// }
-	a, _ := Int64ToBytes(-20)
-	fmt.Println(BytesToInt64(a))
-}
 
-func Int64ToBytes(n int64) ([]byte, error) {
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, uint64(n))
-
-	return b, nil
-}
-
-func BytesToInt64(n []byte) (int64, error) {
-	if n == nil || len(n) < 8 {
-		return 0, nil
-	}
-
-	return int64(binary.BigEndian.Uint64(n)), nil
 }
 
 /*
