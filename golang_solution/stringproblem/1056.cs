@@ -1,3 +1,5 @@
+using System;
+
 public class Solution
 {
 	public bool ConfusingNumber(int n)
@@ -8,7 +10,6 @@ public class Solution
 		{
 			int bit = n % 10;
 			n /= 10;
-
 			switch (bit)
 			{
 				case 2:
