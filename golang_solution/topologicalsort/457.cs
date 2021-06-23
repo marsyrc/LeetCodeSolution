@@ -1,4 +1,5 @@
-public class Solution {
+public class Solution
+{
     private const int markBase = 10000;
     public bool CircularArrayLoop(int[] nums)
     {
@@ -30,7 +31,7 @@ public class Solution {
 
                 if (nums[cur] == mark)
                     return true;
-                
+
                 nums[old] = mark;
             }
         }
