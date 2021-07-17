@@ -13,6 +13,12 @@ func main() {
 
 }
 
+func getMaxLen(nums []int) int {
+	l, r := 0, 0
+	for r < len(nums) {
+		
+	}
+}
 /*
 	Data structure : ListNode
 */

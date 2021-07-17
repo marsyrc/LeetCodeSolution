@@ -10,17 +10,6 @@ func quickSort(arr []int, left, right int) {
 	}
 }
 
-func grayCode(n int) []int {
-	res := []int{0}
-	for cur := 0; cur < n; cur++ {
-		length := len(res)
-		for i := length - 1; i >= 0; i-- { //对之前的格雷码进行逆序并高位补1
-			res = append(res, res[i]+(1<<cur))
-		}
-	}
-	return res
-}
-
 func partition(arr []int, left, right int) int {
 	i, j := left, right
 	pivot := arr[left]

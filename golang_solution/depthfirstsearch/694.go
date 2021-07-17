@@ -16,9 +16,7 @@ func numDistinctIslands(grid [][]int) int {
 				if len(record) > 0 {
 					m[string(record)] = struct{}{}
 				}
-
 			}
-
 		}
 	}
 
